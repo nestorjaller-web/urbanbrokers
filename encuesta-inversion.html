@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¿Listo para invertir en Medellín? — UrbanBrokers</title>
+<meta name="description" content="Descubre tu perfil de inversión en rentas cortas en Medellín. 8 preguntas, 3 minutos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#1D9E75;--green-dark:#0F6E56;--green-deep:#085041;
+  --green-light:#E1F5EE;--green-mid:#9FE1CB;
+  --amber:#EF9F27;--amber-light:#FAEEDA;--amber-dark:#633806;
+  --bg:#F7F5F0;--white:#FFFFFF;
+  --text:#1A1A18;--muted:#6B6B68;--border:#E0DDD6;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);}
+
+body{display:flex;flex-direction:column;min-height:100vh;}
+
+.hero{background:var(--green-deep);color:var(--white);padding:2.5rem 1.5rem 3.5rem;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 20% 50%, rgba(29,158,117,.3) 0%, transparent 60%),radial-gradient(circle at 80% 20%, rgba(159,225,203,.15) 0%, transparent 50%);pointer-events:none;}
+.hero-tag{display:inline-block;background:rgba(159,225,203,.2);border:1px solid rgba(159,225,203,.4);color:var(--green-mid);font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:5px 14px;border-radius:100px;margin-bottom:1.2rem;}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(1.8rem,5vw,2.8rem);line-height:1.2;margin-bottom:.8rem;font-weight:400;}
+.hero h1 em{font-style:italic;color:var(--green-mid);}
+.hero p{font-size:15px;color:rgba(255,255,255,.7);max-width:400px;margin:0 auto 1.5rem;line-height:1.6;}
+.hero-pills{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;}
+.pill{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.85);font-size:12px;padding:5px 12px;border-radius:100px;}
+
+.chat-container{flex:1;max-width:560px;width:100%;margin:0 auto;padding:1.5rem 1rem 2rem;}
+
+.progress-wrap{margin-bottom:1.2rem;}
+.progress-track{height:3px;background:var(--border);border-radius:2px;}
+.progress-fill{height:100%;background:var(--green);border-radius:2px;transition:width .5s cubic-bezier(.4,0,.2,1);}
+.progress-meta{display:flex;justify-content:space-between;margin-top:6px;font-size:12px;color:var(--muted);}
+
+.chat-window{background:var(--white);border:1px solid var(--border);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;}
+.chat-header{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;background:var(--white);}
+.avatar{width:38px;height:38px;border-radius:50%;background:var(--green-light);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.chat-info .name{font-size:14px;font-weight:500;color:var(--text);}
+.chat-info .status{font-size:11px;color:var(--green);display:flex;align-items:center;gap:4px;}
+.status-dot{width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block;}
+
+.messages{padding:16px;display:flex;flex-direction:column;gap:10px;min-height:300px;max-height:380px;overflow-y:auto;scroll-behavior:smooth;}
+.msg{display:flex;gap:8px;align-items:flex-end;animation:fadeUp .3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.msg.bot{justify-content:flex-start;}
+.msg.user{justify-content:flex-end;}
+.bot-av{width:28px;height:28px;border-radius:50%;background:var(--green-light);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;margin-bottom:2px;}
+.bubble{max-width:80%;padding:10px 14px;font-size:14px;line-height:1.55;}
+.bot .bubble{background:var(--bg);border-radius:16px 16px 16px 4px;color:var(--text);}
+.user .bubble{background:var(--green);border-radius:16px 16px 4px 16px;color:#fff;}
+
+.typing-dots{display:flex;align-items:center;gap:4px;padding:4px 2px;}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--green-mid);animation:blink 1.3s infinite;}
+.dot:nth-child(2){animation-delay:.2s;}
+.dot:nth-child(3){animation-delay:.4s;}
+@keyframes blink{0%,80%,100%{opacity:.25;}40%{opacity:1;}}
+
+.reply-area{padding:12px 16px 16px;border-top:1px solid var(--border);}
+.reply-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;}
+.opts{display:flex;flex-wrap:wrap;gap:7px;}
+.opt{background:var(--white);border:1.5px solid var(--border);border-radius:100px;padding:8px 16px;font-size:13px;color:var(--text);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;}
+.opt:hover{border-color:var(--green);color:var(--green-dark);background:var(--green-light);}
+.opt.chosen{background:var(--green);border-color:var(--green);color:#fff;}
+.text-row{display:flex;gap:8px;}
+.text-row input{flex:1;font-size:14px;padding:9px 14px;border-radius:100px;border:1.5px solid var(--border);background:var(--white);color:var(--text);font-family:'DM Sans',sans-serif;outline:none;transition:border-color .15s;}
+.text-row input:focus{border-color:var(--green);}
+.send{background:var(--green);color:#fff;border:none;border-radius:100px;padding:9px 20px;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;transition:background .15s;}
+.send:hover{background:var(--green-dark);}
+
+.result{background:var(--white);border:1px solid var(--border);border-radius:20px;overflow:hidden;margin-top:1.2rem;animation:fadeUp .4s ease;}
+.result-hero{background:var(--green-deep);padding:1.5rem;color:#fff;text-align:center;}
+.result-hero .r-name{font-family:'DM Serif Display',serif;font-size:22px;font-weight:400;margin-bottom:4px;}
+.result-hero .r-sub{font-size:13px;color:rgba(255,255,255,.7);}
+.risk-pill{display:inline-block;margin-top:12px;padding:6px 20px;border-radius:100px;font-size:14px;font-weight:500;}
+.risk-low{background:#C0DD97;color:#173404;}
+.risk-mid{background:#FAC775;color:#412402;}
+.risk-high{background:#F09595;color:#501313;}
+.result-body{padding:1.25rem;}
+.r-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem;}
+.r-item{background:var(--bg);border-radius:12px;padding:12px;}
+.r-item-label{font-size:11px;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em;}
+.r-item-value{font-size:15px;font-weight:500;color:var(--text);}
+.r-insight{background:var(--green-light);border-radius:12px;padding:12px 14px;margin-bottom:12px;font-size:13px;color:var(--green-deep);line-height:1.5;}
+.r-cta{display:block;width:100%;background:var(--green);color:#fff;border:none;border-radius:100px;padding:13px;font-size:15px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;text-align:center;text-decoration:none;transition:background .15s;}
+.r-cta:hover{background:var(--green-dark);}
+.r-note{font-size:11px;color:var(--muted);text-align:center;margin-top:8px;line-height:1.5;}
+
+.footer{text-align:center;padding:1.5rem 1rem;font-size:12px;color:var(--muted);}
+.footer a{color:var(--green);text-decoration:none;}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-tag">UrbanBrokers · Medellín</div>
+  <h1>¿Tu dinero debería<br>estar <em>trabajando</em> ya?</h1>
+  <p>Descubre tu perfil de inversión en 3 minutos y encuentra el proyecto ideal para ti.</p>
+  <div class="hero-pills">
+    <span class="pill">🕐 3 minutos</span>
+    <span class="pill">8 preguntas</span>
+    <span class="pill">Perfil personalizado</span>
+    <span class="pill">Sin costo</span>
+  </div>
+</div>
+
+<div class="chat-container">
+  <div class="progress-wrap">
+    <div class="progress-track"><div class="progress-fill" id="prog" style="width:0%"></div></div>
+    <div class="progress-meta">
+      <span id="prog-label">Comenzando...</span>
+      <span id="prog-pct">0%</span>
+    </div>
+  </div>
+
+  <div class="chat-window">
+    <div class="chat-header">
+      <div class="avatar">🏢</div>
+      <div class="chat-info">
+        <div class="name">UrbanBrokers</div>
+        <div class="status"><span class="status-dot"></span>En línea ahora</div>
+      </div>
+    </div>
+    <div class="messages" id="msgs"></div>
+    <div class="reply-area" id="reply-area">
+      <div class="reply-label" id="reply-label"></div>
+      <div class="opts" id="opts"></div>
+      <div class="text-row" id="text-row" style="display:none;">
+        <input type="text" id="txt" placeholder="Escribe tu nombre..." />
+        <button class="send" onclick="submitText()">Enviar</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="result-section"></div>
+</div>
+
+<div class="footer">
+  UrbanBrokers · Medellín · <a href="#">Política de privacidad</a>
+</div>
+
+<script>
+const Qs=[
+  {id:"name",bot:"¡Hola! 👋 Soy el asesor de UrbanBrokers en Medellín.\n\nEsta conversación me ayudará a entender tu perfil y encontrarte la mejor oportunidad. ¿Cuál es tu nombre?",type:"text",placeholder:"Escribe tu nombre..."},
+  {id:"objetivo",bot:"Mucho gusto, {name} 😊 Para comenzar, ¿cuál es tu objetivo principal con esta inversión?",type:"opts",opts:["Generar renta pasiva mensual","Valorización del patrimonio","Diversificar mis inversiones","Primera inversión inmobiliaria"]},
+  {id:"capital",bot:"Perfecto. ¿Cuánto capital tienes disponible para invertir?",type:"opts",opts:["Menos de $150M","$150M – $250M","$250M – $350M","$350M – $500M","Más de $500M"]},
+  {id:"valor_inmueble",bot:"¿En qué rango de precio te gustaría que estuviera el inmueble?",type:"opts",opts:["Hasta $200M","$200M – $300M","$300M – $400M","Más de $400M","Flexible según la oportunidad"]},
+  {id:"horizonte",bot:"¿Cuánto tiempo planeas mantener la inversión?",type:"opts",opts:["Menos de 2 años","2 a 4 años","4 a 7 años","Más de 7 años"]},
+  {id:"retorno",bot:"¿Qué retorno anual sobre tu inversión esperas obtener?",type:"opts",opts:["8% – 12% anual (estable, bajo riesgo)","12% – 16% anual (moderado)","16% – 20% anual (mayor riesgo)","Maximizar sin restricción de riesgo"]},
+  {id:"perdida",bot:"Si la inversión bajara temporalmente de valor, ¿qué harías?",type:"opts",opts:["Vendería de inmediato para no perder más","Esperaría pero estaría muy preocupado/a","Lo vería como parte normal de invertir","Aprovecharía para comprar más"]},
+  {id:"experiencia",bot:"Última pregunta 🎯 ¿Tienes experiencia previa invirtiendo en finca raíz?",type:"opts",opts:["No, es mi primera vez","Tengo 1 o 2 propiedades","Tengo un portafolio activo","Soy inversionista frecuente"]},
+];
+
+const S={step:0,answers:{}};
+
+function calcRisk(a){
+  const r={"8% – 12% anual (estable, bajo riesgo)":0,"12% – 16% anual (moderado)":1,"16% – 20% anual (mayor riesgo)":2,"Maximizar sin restricción de riesgo":3};
+  const p={"Vendería de inmediato para no perder más":0,"Esperaría pero estaría muy preocupado/a":1,"Lo vería como parte normal de invertir":2,"Aprovecharía para comprar más":3};
+  const e={"No, es mi primera vez":0,"Tengo 1 o 2 propiedades":1,"Tengo un portafolio activo":2,"Soy inversionista frecuente":3};
+  const h={"Menos de 2 años":0,"2 a 4 años":1,"4 a 7 años":2,"Más de 7 años":3};
+  const score=(r[a.retorno]||0)+(p[a.perdida]||0)+(e[a.experiencia]||0)+(h[a.horizonte]||0);
+  if(score<=3)return"Conservador";
+  if(score<=7)return"Moderado";
+  return"Agresivo";
+}
+
+function addMsg(role,text){
+  const box=document.getElementById('msgs');
+  const div=document.createElement('div');
+  div.className='msg '+role;
+  const content=text.replace(/\n/g,'<br>');
+  if(role==='bot') div.innerHTML=`<div class="bot-av">🏢</div><div class="bubble">${content}</div>`;
+  else div.innerHTML=`<div class="bubble">${content}</div>`;
+  box.appendChild(div);
+  box.scrollTop=box.scrollHeight;
+}
+
+function showTyping(){
+  const box=document.getElementById('msgs');
+  const div=document.createElement('div');
+  div.className='msg bot';div.id='typing';
+  div.innerHTML=`<div class="bot-av">🏢</div><div class="bubble"><div class="typing-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>`;
+  box.appendChild(div);box.scrollTop=box.scrollHeight;
+}
+function removeTyping(){const el=document.getElementById('typing');if(el)el.remove();}
+
+function setProgress(step){
+  const pct=Math.round((step/Qs.length)*100);
+  document.getElementById('prog').style.width=pct+'%';
+  document.getElementById('prog-pct').textContent=pct+'%';
+  document.getElementById('prog-label').textContent=step<Qs.length?`Pregunta ${step+1} de ${Qs.length}`:'¡Completado!';
+}
+
+function renderReply(){
+  const q=Qs[S.step];
+  const opts=document.getElementById('opts');
+  const tr=document.getElementById('text-row');
+  const label=document.getElementById('reply-label');
+  opts.innerHTML='';tr.style.display='none';label.textContent='';
+  if(q.type==='opts'){
+    label.textContent='Selecciona una opción:';
+    q.opts.forEach(o=>{
+      const btn=document.createElement('button');
+      btn.className='opt';btn.textContent=o;
+      btn.onclick=()=>pick(o);
+      opts.appendChild(btn);
+    });
+  } else {
+    tr.style.display='flex';
+    const inp=document.getElementById('txt');
+    inp.placeholder=q.placeholder||'Escribe aquí...';
+    inp.value='';
+    setTimeout(()=>inp.focus(),400);
+    inp.onkeydown=e=>{if(e.key==='Enter')submitText();};
+  }
+}
+
+function pick(val){
+  S.answers[Qs[S.step].id]=val;
+  addMsg('user',val);
+  advance();
+}
+function submitText(){
+  const v=document.getElementById('txt').value.trim();
+  if(!v)return;
+  S.answers[Qs[S.step].id]=v;
+  addMsg('user',v);
+  advance();
+}
+
+function advance(){
+  S.step++;
+  setProgress(S.step);
+  if(S.step>=Qs.length){
+    document.getElementById('reply-area').style.display='none';
+    const name=S.answers.name||'';
+    showTyping();
+    setTimeout(()=>{
+      removeTyping();
+      addMsg('bot',`¡Listo, ${name}! 🎉 Analicé tus respuestas y aquí está tu perfil de inversión personalizado:`);
+      setTimeout(showResult,600);
+    },1000);
+    return;
+  }
+  const text=Qs[S.step].bot.replace('{name}',S.answers.name||'');
+  showTyping();
+  setTimeout(()=>{removeTyping();addMsg('bot',text);renderReply();},900);
+}
+
+function showResult(){
+  const a=S.answers;
+  const risk=calcRisk(a);
+  const riskCls=risk==='Conservador'?'risk-low':risk==='Moderado'?'risk-mid':'risk-high';
+  const riskDesc={
+    'Conservador':'Buscas estabilidad y flujo predecible. Te recomendamos proyectos con riesgo bajo, constructoras consolidadas y etapas avanzadas de construcción.',
+    'Moderado':'Aceptas cierta variación a cambio de mejores retornos. Proyectos en construcción con fundamentos sólidos y ROI entre 12–16% son tu zona ideal.',
+    'Agresivo':'Maximizas retorno con tolerancia alta al riesgo. Proyectos en preventa, zonas emergentes o estrategias de múltiples activos pueden ser tu camino.'
+  };
+  const whatsappMsg=encodeURIComponent(`Hola, acabo de completar el perfil de inversión y obtuve: Perfil ${risk}, capital ${a.capital}, rango de inmueble ${a.valor_inmueble}, horizonte ${a.horizonte}. ¿Podemos hablar sobre proyectos disponibles?`);
+
+  document.getElementById('result-section').innerHTML=`
+  <div class="result">
+    <div class="result-hero">
+      <div class="r-name">${a.name}</div>
+      <div class="r-sub">Tu perfil de inversión en rentas cortas</div>
+      <div class="risk-pill ${riskCls}">Perfil ${risk}</div>
+    </div>
+    <div class="result-body">
+      <div class="r-grid">
+        <div class="r-item"><div class="r-item-label">Capital disponible</div><div class="r-item-value">${a.capital}</div></div>
+        <div class="r-item"><div class="r-item-label">Rango de inmueble</div><div class="r-item-value">${a.valor_inmueble}</div></div>
+        <div class="r-item"><div class="r-item-label">Horizonte de inversión</div><div class="r-item-value">${a.horizonte}</div></div>
+        <div class="r-item"><div class="r-item-label">Retorno esperado</div><div class="r-item-value">${a.retorno.split(' ')[0]+' '+a.retorno.split(' ')[1]}</div></div>
+      </div>
+      <div class="r-insight">${riskDesc[risk]}</div>
+      <a class="r-cta" href="https://wa.me/573001234567?text=${whatsappMsg}" target="_blank">
+        Hablar con un asesor ahora →
+      </a>
+      <div class="r-note">Un asesor te contactará en menos de 24 horas.<br>Sin compromiso.</div>
+    </div>
+  </div>`;
+  document.getElementById('result-section').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+setProgress(0);
+showTyping();
+setTimeout(()=>{removeTyping();addMsg('bot',Qs[0].bot);renderReply();},800);
+</script>
+</body>
+</html>
