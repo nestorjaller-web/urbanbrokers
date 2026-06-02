@@ -250,7 +250,19 @@ function advance(){
   setTimeout(()=>{removeTyping();addMsg('bot',text);renderReply();},900);
 }
 
-function showResult(){
+function showResult(){const url = "https://script.google.com/macros/s/AKfycbwV4g6QbUJukAlu98nRpmMFYpIJ7cQoJ89ecLOPH1kDisbgkjmuwzfuLPO3zY7CjdzIwA/exec";
+  fetch(url, {
+    method: "POST",
+    body: JSON.stringify({
+      nombre: a.name,
+      objetivo: a.objetivo,
+      capital: a.capital,
+      valor_inmueble: a.valor_inmueble,
+      horizonte: a.horizonte,
+      retorno: a.retorno,
+      perfil: calcRisk(a)
+    })
+  });
   const a=S.answers;
   const risk=calcRisk(a);
   const riskCls=risk==='Conservador'?'risk-low':risk==='Moderado'?'risk-mid':'risk-high';
