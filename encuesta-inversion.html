@@ -250,19 +250,7 @@ function advance(){
   setTimeout(()=>{removeTyping();addMsg('bot',text);renderReply();},900);
 }
 
-function showResult(){const url = "https://script.google.com/macros/s/AKfycbxEyZUV3ANHO4D7SdW5Kxro7Bb2rdltNOHTVrVIy-6uLsA6Q1mBTsLk5KXmNIH5R1I7lQ/exec";
-  fetch(url, {
-    method: "POST",
-    body: JSON.stringify({
-      nombre: a.name,
-      objetivo: a.objetivo,
-      capital: a.capital,
-      valor_inmueble: a.valor_inmueble,
-      horizonte: a.horizonte,
-      retorno: a.retorno,
-      perfil: calcRisk(a)
-    })
-  });
+function showResult(){
   const a=S.answers;
   const risk=calcRisk(a);
   const riskCls=risk==='Conservador'?'risk-low':risk==='Moderado'?'risk-mid':'risk-high';
@@ -271,7 +259,25 @@ function showResult(){const url = "https://script.google.com/macros/s/AKfycbxEyZ
     'Moderado':'Aceptas cierta variación a cambio de mejores retornos. Proyectos en construcción con fundamentos sólidos y ROI entre 12–16% son tu zona ideal.',
     'Agresivo':'Maximizas retorno con tolerancia alta al riesgo. Proyectos en preventa, zonas emergentes o estrategias de múltiples activos pueden ser tu camino.'
   };
-  const whatsappMsg=encodeURIComponent(`Hola, acabo de completar el perfil de inversión y obtuve: Perfil ${risk}, capital ${a.capital}, rango de inmueble ${a.valor_inmueble}, horizonte ${a.horizonte}. ¿Podemos hablar sobre proyectos disponibles?`);
+  const whatsappMsg=encodeURIComponent(`Hola, acabo de completar el perfil de inversión en UrbanBrokers y obtuve: Perfil ${risk}, capital ${a.capital}, rango de inmueble ${a.valor_inmueble}, horizonte ${a.horizonte}. ¿Podemos hablar sobre proyectos disponibles?`);
+
+  // Guardar en Google Sheets
+  try {
+    fetch("https://script.google.com/macros/s/AKfycbxEyZUV3ANHO4D7SdW5Kxro7Bb2rdltNOHTVrVIy-6uLsA6Q1mBTsLk5KXmNIH5R1I7lQ/exec", {
+      method: "POST",
+      mode: "no-cors",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        nombre: a.name,
+        objetivo: a.objetivo,
+        capital: a.capital,
+        valor_inmueble: a.valor_inmueble,
+        horizonte: a.horizonte,
+        retorno: a.retorno,
+        perfil: risk
+      })
+    });
+  } catch(err) { console.log('Sheets error:', err); }
 
   document.getElementById('result-section').innerHTML=`
   <div class="result">
